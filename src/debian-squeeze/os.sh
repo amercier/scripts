@@ -12,6 +12,7 @@
 #     # os_distribution
 #     > Debian
 # ------------------------------------------------------------------------------
+
 function os_distribution {
 	local n
 	if [[ -r '/etc/lsb-release' ]]; then
