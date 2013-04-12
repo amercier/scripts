@@ -1,4 +1,4 @@
-setx -m PATH "%PATH%;%%ANT_HOME%%\bin;%%CYGWIN_HOME%%\bin;%%FLEX_HOME%%\bin;%%MAVEN_HOME%%\bin;%%PHP_HOME%%\"
+setx -m PATH "%PATH%;%%ANT_HOME%%\bin;%%CYGWIN_HOME%%\bin;%%FLEX_HOME%%\bin;%%MAVEN_HOME%%\bin;%%PHP_HOME%%\;%%PEAR_HOME%%\"
 mklink /J "%USERPROFILE%\AppData\Local\Apps" "%MYPROGRAMFILES%\ClickOnce"
 mklink /J "%MYPROGRAMFILES% (x86)\Cygwin"      "%CYGWIN_HOME%"
 mklink /J "%MYPROGRAMFILES% (x86)\Flex"        "%FLEX_HOME%"
