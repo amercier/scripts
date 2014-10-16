@@ -11,3 +11,5 @@ grep -q profile.d /etc/profile \
 for PROFILE_SCRIPT in $( ls /etc/profile.d/*.sh ); do
   . $PROFILE_SCRIPT
 done' | sudo tee -a /etc/profile && echo "Updated /etc/profile")
+
+source /etc/profile
