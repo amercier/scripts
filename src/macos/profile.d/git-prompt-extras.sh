@@ -1,6 +1,8 @@
 #!/usr/bin/env bash
 
 git-dirty() {
+    git status >/dev/null 2>&1 || return
+
     st=$(git status 2>/dev/null | tail -n 1)
     if [[ $st != "nothing to commit (working directory clean)" ]]
     then
@@ -9,6 +11,7 @@ git-dirty() {
 }
 
 git-behind() {
+    git status >/dev/null 2>&1 || return
 
     # get the tracking-branch name
     tracking_branch=$(git for-each-ref --format='%(upstream:short)' $(git symbolic-ref -q HEAD))
@@ -21,6 +24,8 @@ git-behind() {
 }
 
 git-ahead() {
+    git status >/dev/null 2>&1 || return
+
     # get the tracking-branch name
     tracking_branch=$(git for-each-ref --format='%(upstream:short)' $(git symbolic-ref -q HEAD))
     
@@ -29,14 +34,4 @@ git-ahead() {
     set -- $(git rev-list --left-right --count $tracking_branch...HEAD)
     
     if [ "$2" != "0" ]; then echo -n -e "+$2"; fi
-}
-
-git-status() {
-    status=$(git status 2>/dev/null | tail -n 1)
-    if [[ $status == "" ]]
-    then
-        echo ""
-    else
-        echo $(git-dirty)$(git-unpushed)
-    fi
 }
