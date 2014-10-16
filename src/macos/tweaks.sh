@@ -1,9 +1,6 @@
 #!/usr/bin/env bash
 
 # Disable .DS_Store files
-if [ "$(defaults read com.apple.desktopservices DSDontWriteNetworkStores)" == "false" ]; then
-  curl -s -L https://gist.github.com/amercier/944ae3c5fe2277bbf538/raw | sudo bash
-fi
 defaults write com.apple.desktopservices DSDontWriteNetworkStores true
 
 # Disable the "Are you sure you want to open this application?" dialog
