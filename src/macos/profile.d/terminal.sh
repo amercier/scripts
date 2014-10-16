@@ -1,4 +1,5 @@
 #!/usr/bin/env bash
+# Colors: http://mediadoneright.com/content/ultimate-git-ps1-bash-prompt
 
 export TERM=xterm-color
 export GREP_OPTIONS='--color=auto' GREP_COLOR='1;32'
