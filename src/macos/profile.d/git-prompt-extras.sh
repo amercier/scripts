@@ -4,7 +4,7 @@ git-dirty() {
     git status >/dev/null 2>&1 || return
 
     st=$(git status 2>/dev/null | tail -n 1)
-    if [[ $st != "nothing to commit (working directory clean)" ]]
+    if [[ $st != "nothing to commit, working directory clean" ]]
     then
         echo "*"
     fi
