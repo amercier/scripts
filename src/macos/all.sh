@@ -30,7 +30,7 @@ brew install git
 brew install nvm
 nvm install $(curl -L -s http://nodejs.org/ | grep Current | egrep -o 'v[0-9]+\.[0-9]+\.[0-9]+' | head -n 1)
 
-for package in gulp grunt bower yo generator-angular; do
+for package in gulp grunt-cli bower yo generator-angular; do
   [ -d $NODE_PATH/$package ] && echo $package is already installed || npm install $package -g
 done
 
@@ -38,6 +38,6 @@ done
 which rvm >/dev/null && echo "RVM is already installed" || curl -sSL https://get.rvm.io | bash -s stable
 source ~/.profile
 rvm install $(curl -s -L https://www.ruby-lang.org/en/downloads/ | grep stable | egrep -o '[0-9]+\.[0-9]+\.[0-9]+' | head -n 1)
-for gem in rails-api; do
-  [ -d $GEM_HOME/bin/$gem ] && echo $gem is already installed || gem install $gem
+for gem in rails-api compass; do
+  [ -e $GEM_HOME/bin/$gem ] && echo $gem is already installed || gem install $gem
 done
