@@ -17,6 +17,7 @@ curl -s -L $SCRIPTS/profile.d/terminal.sh | sudo tee /etc/profile.d/terminal.sh 
 curl -s -L $SCRIPTS/profile.sh | bash
 
 curl -s -L $SCRIPTS/install/google-chrome.sh | bash
+curl -s -L $SCRIPTS/install/firefox.sh | bash
 curl -s -L $SCRIPTS/install/spectacle.sh | bash
 curl -s -L $SCRIPTS/install/sublime-text.sh | bash
 
