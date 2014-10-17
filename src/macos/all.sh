@@ -36,6 +36,7 @@ done
 
 # Ruby
 which rvm >/dev/null && echo "RVM is already installed" || curl -sSL https://get.rvm.io | bash -s stable
+source ~/.profile
 rvm install $(curl -s -L https://www.ruby-lang.org/en/downloads/ | grep stable | egrep -o '[0-9]+\.[0-9]+\.[0-9]+' | head -n 1)
 for gem in rails-api; do
   [ -d $GEM_HOME/bin/$gem ] && echo $gem is already installed || gem install $gem
