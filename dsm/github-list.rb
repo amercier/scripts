@@ -3,7 +3,7 @@
 # List repositories of a given user and all its public organizations
 # on standard output using the GitHub API
 #
-#     github-list.rb USERNAME
+#     github-list.rb USERNAME LOGIN:PASSWORD
 #
 #     > username/repo1
 #     > username/repo2
@@ -16,19 +16,19 @@ require 'base64'
 require 'json'
 require 'open-uri'
 
+# Check argument numbers
+if ARGV.count != 2
+  abort "Syntax: #{File.basename($0, File.extname($0))} USERNAME LOGIN:PASSWORD"
+end
+username = ARGV[0]
+
 GITHUB_API_VERSION = "v3"
 GITHUB_API_URL = "https://api.github.com/"
 GITHUB_API_ACCEPT = "application/vnd.github.#{GITHUB_API_VERSION}+json"
 GITHUB_API_HEADERS = {
-  'Accept' => GITHUB_API_ACCEPT#,
-  # TODO 'Authorization' => "Basic #{Base64.encode64('username:password')}"
+  'Accept' => GITHUB_API_ACCEPT,
+  'Authorization' => "Basic #{Base64.encode64(ARGV[1])}"
 }
-
-# Check argument numbers
-if ARGV.count != 1
-  abort "Syntax: #{File.basename($0, File.extname($0))} USERNAME"
-end
-username = ARGV[0]
 
 def display_repositories(entity)
   repos = JSON.parse(open(entity['repos_url'], GITHUB_API_HEADERS).read)
@@ -58,7 +58,7 @@ begin
 
 rescue OpenURI::HTTPError => e
   case e.io.status[0]
-  when "403"
+  when "401", "403"
     abort JSON.parse(e.io.string)['message']
   when "404"
     abort "Unknown user #{username}"

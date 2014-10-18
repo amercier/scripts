@@ -4,7 +4,7 @@
 # If a git repository already exists in the current location,
 # it will be updated using git pull
 #
-#     github-list.rb USERNAME PATH
+#     github-list.rb USERNAME PATH LOGIN:PASSWORD
 #
 #     PATH/username/repo1/
 #     PATH/username/repo2/
@@ -16,8 +16,8 @@
 # Note: this script require ./github-list.rb
 
 # Check argument numbers
-if ARGV.count != 2
-  abort "Syntax: #{File.basename($0, File.extname($0))} USERNAME PATH"
+if ARGV.count != 3
+  abort "Syntax: #{File.basename($0, File.extname($0))} USERNAME PATH LOGIN:PASSWORD"
 end
 username = ARGV[0]
 
@@ -30,13 +30,13 @@ abort "#{path} is not writable"          if !File.writable? path
 begin
 
   # Get all repos using github-list.rb
-  repos = `#{File.dirname(__FILE__) + '/github-list.rb ' + username}`
+  repos = `#{File.dirname(__FILE__) + '/github-list.rb ' + username + ' "' + ARGV[2] + '"'}`
 
   # Iterate over all fetched repos
   repos.split("\n").each do |repo|
 
     repo_owner, repo_name = repo.split('/')
-    full_path = File.join path, repo_owner, repo_name, '.git'
+    full_path = File.join path, repo_owner, repo_name + '.git'
     repo_url = "https://github.com/#{repo}.git"
 
     if File.exists? full_path
