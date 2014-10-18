@@ -15,6 +15,7 @@
 require 'base64'
 require 'json'
 require 'open-uri'
+require 'pp'
 
 # Check argument numbers
 if ARGV.count != 2
@@ -30,12 +31,54 @@ GITHUB_API_HEADERS = {
   'Authorization' => "Basic #{Base64.encode64(ARGV[1])}"
 }
 
-def display_repositories(entity)
-  repos = JSON.parse(open(entity['repos_url'], GITHUB_API_HEADERS).read)
-  repos.each do |repo|
-    puts repo['full_name']
+# Parses a RFC5988-compliant link header value and return a hash
+#
+# Params:
+# +links+:: comma-separated list of links. A link is is a string in the format: <+value+>; rel="+key+"
+#
+# Returns a hash using +key+ as keys and +value+ as values
+#
+# See http://www.vinaysahni.com/best-practices-for-a-pragmatic-restful-api#pagination
+# to see concrete example of pagination using the link header
+# See RFC5988 reference documentation at http://tools.ietf.org/html/rfc5988#section-5
+def parse_links(links)
+  results = Hash.new
+  links.split(/, */).each do |part|
+    if !(matches = /\A<(.*)>; [^=]+="([^"]*)"\Z/.match(part)).nil?
+      results[ matches[2] ] = matches[1]
+    end
   end
+  return results
 end
+
+# Display all GitHub repositories of a user or an organization
+#
+# Params:
+# +entity+:: user or organization identifier
+#
+# Returns void
+def display_repositories(entity)
+
+  url = entity['repos_url']
+  while !url.nil?
+    response = open(url, GITHUB_API_HEADERS)
+
+    # Parse repositories
+    repos = JSON.parse response.read
+    repos.each do |repo|
+      puts repo['full_name']
+    end
+
+    # Check if there is a next page
+    url = nil
+    if response.meta.has_key? 'link'
+      links = parse_links response.meta['link']
+      url = links['next'] if links.has_key? 'next'
+    end
+  end
+
+end
+
 
 begin
 
