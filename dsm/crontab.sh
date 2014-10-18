@@ -98,13 +98,13 @@ check_new () {
 
 restart_cron () {
   echo "Refreshing cron daemon."
-  /usr/syno/sbin/synoservice --restart crond
+  /usr/syno/sbin/synoservicectl --restart crond
 }
 
 archive () { # Keep up to MAXVER versions
   ARCVER=$MAXVER
   while [[ $ARCVER -gt 1 ]]; do
-    PRVVER=`expr $ARCVER - 1` 
+    PRVVER=`expr $ARCVER - 1`
     mv -f $TMPNAME.$PRVVER $TMPNAME.$ARCVER
     ARCVER=$PRVVER
   done
