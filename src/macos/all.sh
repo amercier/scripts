@@ -41,6 +41,6 @@ source ~/.profile
 rvm_version = "$(curl -s -L https://www.ruby-lang.org/en/downloads/ | grep stable | egrep -o '[0-9]+\.[0-9]+\.[0-9]+' | head -n 1)"
 rvm install $rvm_version
 rvm --default use $rvm_version
-for gem in rails-api compass; do
+for gem in rails rails-api compass bundler; do
   [ -e $GEM_HOME/bin/$gem ] && echo $gem is already installed || gem install $gem
 done
