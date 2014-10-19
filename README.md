@@ -21,10 +21,10 @@ Login as root on your Synology (use admin's password as root password):
 
 Download the scripts:
 
-    DiskStation> mkdir -p /root/scripts && cd /root/scripts \
-    && wget https://raw.githubusercontent.com/amercier/scripts/master/dsm/github-list.rb \
-    && wget https://raw.githubusercontent.com/amercier/scripts/master/dsm/github-sync.rb \
-    && chmod 0700 ./github-list.rb ./github-sync.rb
+    DiskStation> mkdir -p /root/scripts \
+    && curl -sL https://raw.githubusercontent.com/amercier/scripts/master/dsm/github-list.rb -o /root/scripts/github-list.rb \
+    && curl -sL https://raw.githubusercontent.com/amercier/scripts/master/dsm/github-sync.rb -o /root/scripts/github-sync.rb \
+    && chmod 0700 /root/scripts/github-list.rb /root/scripts/github-sync.rb
 
 Test the script (test twice to make sure the update is working as well):
 
