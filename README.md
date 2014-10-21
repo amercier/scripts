@@ -1,19 +1,30 @@
 scripts
 =======
 
-Linux &amp; Windows scripts
+MacOS, Linux, Windows and other platforms scripts
+
+
+MacOS X
+-------
+
+### Install an application
+
+Ex: Google Chrome
+
+    curl -Ls https://raw.githubusercontent.com/amercier/scripts/master/macos/install-app.rb | ruby - https://dl.google.com/chrome/mac/stable/GGRO/googlechrome.dmg 'Google Chrome'
+
 
 Synology DiskStation Manager
 ----------------------------
 
-# Synchronize GitHub repositories
+### Synchronize GitHub repositories
 
-## Requirements
+#### Requirements
 
 - Git
 - Ruby
 
-## Installation
+#### Installation
 
 Login as root on your Synology (use admin's password as root password):
 
