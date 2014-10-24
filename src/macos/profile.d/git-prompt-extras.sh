@@ -15,7 +15,8 @@ git-behind() {
 
     # get the tracking-branch name
     tracking_branch=$(git for-each-ref --format='%(upstream:short)' $(git symbolic-ref -q HEAD))
-    
+    [ "$tracking_branch" != "" ] || return
+
     # creates global variables $1 and $2 based on left vs. right tracking
     # inspired by @adam_spiers
     set -- $(git rev-list --left-right --count $tracking_branch...HEAD)
@@ -28,10 +29,11 @@ git-ahead() {
 
     # get the tracking-branch name
     tracking_branch=$(git for-each-ref --format='%(upstream:short)' $(git symbolic-ref -q HEAD))
-    
+    [ "$tracking_branch" != "" ] || return
+
     # creates global variables $1 and $2 based on left vs. right tracking
     # inspired by @adam_spiers
     set -- $(git rev-list --left-right --count $tracking_branch...HEAD)
-    
+
     if [ "$2" != "0" ]; then echo -n -e "+$2"; fi
 }
