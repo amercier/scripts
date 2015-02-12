@@ -5,3 +5,6 @@ export PATH="$PATH:$HOME/.rvm/bin"
 
 # Initialize RVM environment
 [[ -s "$HOME/.rvm/scripts/rvm" ]] && source "$HOME/.rvm/scripts/rvm"
+
+# Disable RVM auto-switching warnings
+rvm rvmrc warning ignore allGemfiles
